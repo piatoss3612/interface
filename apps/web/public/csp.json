@@ -28,7 +28,8 @@
     "'self'",
     "https://buy.moonpay.com/",
     "https://verify.walletconnect.com/",
-    "https://verify.walletconnect.org/"
+    "https://verify.walletconnect.org/",
+    "http://localhost:3201/"
   ],
   "mediaSrc": [
     "self",
@@ -41,6 +42,8 @@
     "'self'",
     "blob:",
     "data:",
+    "http://localhost:3201/",
+    "https://eth.merkle.io/",
     "https://*.alchemy.com",
     "https://*.arbitrum.io",
     "https://*.base.org/",

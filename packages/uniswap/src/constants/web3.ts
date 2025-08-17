@@ -11,6 +11,7 @@ export const CONNECTION_PROVIDER_IDS = {
   BINANCE_WALLET_CONNECTOR_ID: 'wallet.binance.com',
   BINANCE_WALLET_RDNS: 'com.binance.wallet',
   MOCK_CONNECTOR_ID: 'mock',
+  KEPLR_EWALLET_CONNECTOR_ID: 'keplr-ewallet',
 } as const
 
 export const CONNECTION_PROVIDER_NAMES = {
@@ -23,4 +24,5 @@ export const CONNECTION_PROVIDER_NAMES = {
   COINBASE_SDK: 'Coinbase Wallet',
   SAFE: 'Safe',
   BINANCE_WALLET: 'Binance Wallet',
+  KEPLR_EWALLET: 'Keplr E-Wallet',
 } as const

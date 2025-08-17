@@ -50,10 +50,6 @@ function isCoinbaseWalletBrowser(connectors: WalletConnectorMeta[]): boolean {
   return isMobileWeb && connectors.some((c) => c.wagmi?.id === CONNECTION_PROVIDER_IDS.COINBASE_RDNS)
 }
 
-function isBinanceWalletBrowser(connectors: WalletConnectorMeta[]): boolean {
-  return isMobileWeb && connectors.some((c) => c.wagmi?.id === CONNECTION_PROVIDER_IDS.BINANCE_WALLET_RDNS)
-}
-
 function shouldShowOnlyInjectedConnector(injectedConnectors: WalletConnectorMeta[]): boolean {
   return isMobileWeb && injectedConnectors.length === 1
 }
@@ -63,27 +59,27 @@ function buildSecondaryConnectorsList({
   isEmbeddedWalletEnabled,
   walletConnectConnector,
   coinbaseSdkConnector,
+  keplrEWalletConnector,
   embeddedWalletConnector,
-  binanceWalletConnector,
   recentConnectorId,
 }: {
   isMobileWeb: boolean
   isEmbeddedWalletEnabled: boolean
   walletConnectConnector: WalletConnectorMeta
   coinbaseSdkConnector: WalletConnectorMeta
+  keplrEWalletConnector: WalletConnectorMeta
   embeddedWalletConnector: WalletConnectorMeta | undefined // only undefined if embedded wallet is disabled
-  binanceWalletConnector: WalletConnectorMeta | undefined // undefined if using injected connector from binance browser
   recentConnectorId: string | undefined
 }): WalletConnectorMeta[] {
   const orderedConnectors: WalletConnectorMeta[] = []
 
   if (isMobileWeb) {
-    isEmbeddedWalletEnabled && embeddedWalletConnector && orderedConnectors.push(embeddedWalletConnector)
+    orderedConnectors.push(keplrEWalletConnector)
     orderedConnectors.push(walletConnectConnector)
     orderedConnectors.push(coinbaseSdkConnector)
-    binanceWalletConnector && orderedConnectors.push(binanceWalletConnector)
+    isEmbeddedWalletEnabled && embeddedWalletConnector && orderedConnectors.push(embeddedWalletConnector)
   } else {
-    const secondaryConnectors = [walletConnectConnector, coinbaseSdkConnector, binanceWalletConnector].filter(
+    const secondaryConnectors = [keplrEWalletConnector, walletConnectConnector, coinbaseSdkConnector].filter(
       (c): c is WalletConnectorMeta => Boolean(c),
     )
     // Recent connector should have already been shown on the primary page
@@ -100,16 +96,16 @@ function buildPrimaryConnectorsList({
   isEmbeddedWalletEnabled,
   walletConnectConnector,
   coinbaseSdkConnector,
+  keplrEWalletConnector,
   embeddedWalletConnector,
-  binanceWalletConnector,
   recentConnectorId,
 }: {
   injectedConnectors: WalletConnectorMeta[]
   isEmbeddedWalletEnabled: boolean
   walletConnectConnector: WalletConnectorMeta
   coinbaseSdkConnector: WalletConnectorMeta
+  keplrEWalletConnector: WalletConnectorMeta
   embeddedWalletConnector: WalletConnectorMeta | undefined // only undefined if embedded wallet is disabled
-  binanceWalletConnector: WalletConnectorMeta | undefined // undefined if using injected connector from binance browser
   recentConnectorId: string | undefined
 }): WalletConnectorMeta[] {
   const orderedConnectors: WalletConnectorMeta[] = []
@@ -117,20 +113,21 @@ function buildPrimaryConnectorsList({
   orderedConnectors.push(...injectedConnectors)
   // If embedded wallet is enabled, add it to the top of the list
   // Else we don't care about the primary/secondary split so show mobile connectors
+  // If used recently, still add mobile wallets to primary
   if (isEmbeddedWalletEnabled && embeddedWalletConnector) {
     orderedConnectors.push(embeddedWalletConnector)
     // If used recently, still add mobile wallets to primary
-    if (recentConnectorId === CONNECTION_PROVIDER_IDS.COINBASE_SDK_CONNECTOR_ID) {
+    if (recentConnectorId === CONNECTION_PROVIDER_IDS.KEPLR_EWALLET_CONNECTOR_ID) {
+      orderedConnectors.push(keplrEWalletConnector)
+    } else if (recentConnectorId === CONNECTION_PROVIDER_IDS.COINBASE_SDK_CONNECTOR_ID) {
       orderedConnectors.push(coinbaseSdkConnector)
     } else if (recentConnectorId === CONNECTION_PROVIDER_IDS.WALLET_CONNECT_CONNECTOR_ID) {
       orderedConnectors.push(walletConnectConnector)
-    } else if (recentConnectorId === CONNECTION_PROVIDER_IDS.BINANCE_WALLET_CONNECTOR_ID && binanceWalletConnector) {
-      orderedConnectors.push(binanceWalletConnector)
     }
   } else {
+    orderedConnectors.push(keplrEWalletConnector)
     orderedConnectors.push(walletConnectConnector)
     orderedConnectors.push(coinbaseSdkConnector)
-    binanceWalletConnector && orderedConnectors.push(binanceWalletConnector)
   }
 
   return orderedConnectors
@@ -158,7 +155,7 @@ export function useOrderedWalletConnectors({
       connectors,
       isEmbeddedWalletEnabled,
     })
-    const isBinanceBrowser = isBinanceWalletBrowser(connectors)
+
     const embeddedWalletConnector = isEmbeddedWalletEnabled
       ? getConnectorWithIdWithThrow({
           connectors,
@@ -173,12 +170,10 @@ export function useOrderedWalletConnectors({
       connectors,
       id: CONNECTION_PROVIDER_IDS.WALLET_CONNECT_CONNECTOR_ID,
     })
-    const binanceWalletConnector = isBinanceBrowser
-      ? undefined
-      : getConnectorWithIdWithThrow({
-          connectors,
-          id: CONNECTION_PROVIDER_IDS.BINANCE_WALLET_CONNECTOR_ID,
-        })
+    const keplrEWalletConnector = getConnectorWithIdWithThrow({
+      connectors,
+      id: CONNECTION_PROVIDER_IDS.KEPLR_EWALLET_CONNECTOR_ID,
+    })
 
     if (isPlaywrightEnv()) {
       const mockConnector = getConnectorWithIdWithThrow({
@@ -204,20 +199,20 @@ export function useOrderedWalletConnectors({
       orderedConnectors = buildSecondaryConnectorsList({
         isMobileWeb,
         isEmbeddedWalletEnabled,
+        embeddedWalletConnector,
         walletConnectConnector,
         coinbaseSdkConnector,
-        embeddedWalletConnector,
-        binanceWalletConnector,
+        keplrEWalletConnector,
         recentConnectorId,
       })
     } else {
       orderedConnectors = buildPrimaryConnectorsList({
         injectedConnectors,
         isEmbeddedWalletEnabled,
+        embeddedWalletConnector,
         walletConnectConnector,
         coinbaseSdkConnector,
-        embeddedWalletConnector,
-        binanceWalletConnector,
+        keplrEWalletConnector,
         recentConnectorId,
       })
     }
