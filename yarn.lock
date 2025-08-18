@@ -8302,33 +8302,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@keplr-ewallet/ewallet-sdk-core@npm:^0.0.6-rc.39":
-  version: 0.0.6-rc.39
-  resolution: "@keplr-ewallet/ewallet-sdk-core@npm:0.0.6-rc.39"
+"@keplr-ewallet/ewallet-sdk-core@npm:^0.0.6-rc.41":
+  version: 0.0.6-rc.41
+  resolution: "@keplr-ewallet/ewallet-sdk-core@npm:0.0.6-rc.41"
   dependencies:
-    "@keplr-ewallet/stdlib-js": ^0.0.2-rc.6
+    "@keplr-ewallet/stdlib-js": ^0.0.2-rc.8
     "@keplr-wallet/types": ^0.12.257
-  checksum: 059031a6caf53566166dab3ab2172e1da1f95fd3df31ddf39f2dd794131868a6ecdd9af5b87bd5c823f2ac8bada17b275b2630f7b813e7b06dc2e9e39523480a
+  checksum: ce9bd2b78738b89a925e5f955bfdaf95f0d66cfc2d6d24c9dff6d1729b9a8e78dd676134cfae82f2f3ddf65eefa00d6d1edade25e5febb93619e52e4f2f585a7
   languageName: node
   linkType: hard
 
-"@keplr-ewallet/ewallet-sdk-eth@npm:0.0.6-rc.45":
-  version: 0.0.6-rc.45
-  resolution: "@keplr-ewallet/ewallet-sdk-eth@npm:0.0.6-rc.45"
+"@keplr-ewallet/ewallet-sdk-eth@npm:0.0.6-rc.47":
+  version: 0.0.6-rc.47
+  resolution: "@keplr-ewallet/ewallet-sdk-eth@npm:0.0.6-rc.47"
   dependencies:
-    "@keplr-ewallet/ewallet-sdk-core": ^0.0.6-rc.39
-    "@keplr-ewallet/stdlib-js": ^0.0.2-rc.6
+    "@keplr-ewallet/ewallet-sdk-core": ^0.0.6-rc.41
+    "@keplr-ewallet/stdlib-js": ^0.0.2-rc.8
     eventemitter3: ^5.0.1
     uuid: "*"
     viem: "*"
-  checksum: 1bfbd167a157f7a5aa42250cfb29ee1aa204da0dd3ac2400c7097d9a6c1321da33560f0fddf79a63eb0d8ece5756c827ad0603f97d3bf85a7b864d5b1d021258
+  checksum: 11521a0676f729aba35da2c71ee43e59f1cb90de5a1bfbeb83d15463b5a0e8fba9b64aa757a2d871d4b20ce196329aa44a8fec348fdb8d59b7dfe220b84d331a
   languageName: node
   linkType: hard
 
-"@keplr-ewallet/stdlib-js@npm:^0.0.2-rc.6":
-  version: 0.0.2-rc.6
-  resolution: "@keplr-ewallet/stdlib-js@npm:0.0.2-rc.6"
-  checksum: 5f12058307f21b14109b39ba8848c2a82e166dc71b56c7f3974284431196edb44f3da38b6eb079fe523361d226225ea416dd6571fdb9b7d85e75ff9e6cf2b42e
+"@keplr-ewallet/stdlib-js@npm:^0.0.2-rc.8":
+  version: 0.0.2-rc.8
+  resolution: "@keplr-ewallet/stdlib-js@npm:0.0.2-rc.8"
+  checksum: 9f2e22696715cb14729e8fc8fe699c1f57c4cf8e31e048ad1efce525edb6fdf1637a32f8bd95a90ed99faca8f60f2fb815934623c768f9ef06962655f95ce5fc
   languageName: node
   linkType: hard
 
@@ -17078,7 +17078,7 @@ __metadata:
     "@graphql-codegen/typescript-react-apollo": 3.3.7
     "@graphql-codegen/typescript-resolvers": 3.2.1
     "@juggle/resize-observer": 3.4.0
-    "@keplr-ewallet/ewallet-sdk-eth": 0.0.6-rc.45
+    "@keplr-ewallet/ewallet-sdk-eth": 0.0.6-rc.47
     "@playwright/test": 1.49.1
     "@popperjs/core": 2.11.8
     "@reach/dialog": 0.10.5

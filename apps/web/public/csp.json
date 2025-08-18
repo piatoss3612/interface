@@ -43,7 +43,7 @@
     "blob:",
     "data:",
     "http://localhost:3201/",
-    "https://eth.merkle.io/",
+    "https://*.keplr.app",
     "https://*.alchemy.com",
     "https://*.arbitrum.io",
     "https://*.base.org/",

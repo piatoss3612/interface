@@ -170,7 +170,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-codegen/typescript-resolvers": "3.2.1",
     "@juggle/resize-observer": "3.4.0",
-    "@keplr-ewallet/ewallet-sdk-eth": "0.0.6-rc.45",
+    "@keplr-ewallet/ewallet-sdk-eth": "0.0.6-rc.47",
     "@popperjs/core": "2.11.8",
     "@reach/dialog": "0.10.5",
     "@reach/portal": "0.10.5",
